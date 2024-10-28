@@ -1,0 +1,279 @@
+:root {
+  /* Dark backgrounds (nord0-3 equivalents) */
+  --dracula-bg: #282a36;
+  --dracula-black: #21222c;
+  --dracula-darker: #191a21;
+  --dracula-selection: #44475a;
+
+  /* Light/text colors (nord4-6 equivalents) */
+  --dracula-fg: #f8f8f2;
+  --dracula-white: #ffffff;
+  --dracula-light: #f8f8f2;
+
+  /* Special colors (nord7-10 equivalents) */
+  --dracula-cyan: #8be9fd;
+  --dracula-blue: #6272a4;
+  --dracula-purple: #bd93f9;
+  --dracula-violet: #9580ff;
+
+  /* Accent colors (nord11-15 equivalents) */
+  --dracula-red: #ff5555;
+  --dracula-orange: #ffb86c;
+  --dracula-yellow: #f1fa8c;
+  --dracula-green: #50fa7b;
+  --dracula-pink: #ff79c6;
+}
+
+
+.reveal-viewport {
+  background: var(--dracula-bg);
+  background-color: var(--dracula-bg);
+}
+
+.reveal {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 40px;
+  font-weight: normal;
+  color: var(--dracula-fg);
+}
+
+::selection {
+  color: var(--dracula-white);
+  background: var(--dracula-violet);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  color: var(--dracula-white);
+  background: var(--dracula-violet);
+  text-shadow: none;
+}
+
+.reveal .slides section,
+.reveal .slides section > section {
+  line-height: 1.3;
+  font-weight: inherit;
+}
+
+/* Headings */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 20px 0;
+  color: var(--dracula-white);
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-shadow: none;
+  word-wrap: break-word;
+}
+
+.reveal h1 {font-size: 2.5em; color: var(--dracula-cyan);}
+.reveal h2 {font-size: 1.6em; color: var(--dracula-blue);}
+.reveal h3 {font-size: 1.3em; color: var(--dracula-purple);}
+.reveal h4 {font-size: 1em;}
+
+/* Other */
+.reveal p {
+  margin: 20px 0;
+  line-height: 1.3;
+}
+
+/* Ensure certain elements are never larger than the slide itself */
+.reveal img,
+.reveal video,
+.reveal iframe {
+  max-width: 95%;
+  max-height: 95%;
+}
+
+/* Links */
+.reveal a {
+  color: var(--dracula-cyan);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.reveal a:hover {
+  color: var(--dracula-blue);
+  text-shadow: none;
+  border: none;
+}
+
+/* Lists */
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: inline-block;
+  text-align: left;
+  margin: 0 0 0 1em;
+}
+
+.reveal ol {
+  list-style-type: decimal;
+}
+
+.reveal ul {
+  list-style-type: disc;
+}
+
+.reveal ul ul {
+  list-style-type: square;
+}
+
+.reveal ul ul ul {
+  list-style-type: circle;
+}
+
+.reveal ul ul,
+.reveal ul ol,
+.reveal ol ol,
+.reveal ol ul {
+  display: block;
+  margin-left: 40px;
+}
+
+.reveal li {
+  margin: 10px 0;
+}
+
+/* Code */
+.reveal pre {
+  display: block;
+  position: relative;
+  width: 90%;
+  margin: 20px auto;
+  text-align: left;
+  font-size: 0.55em;
+  font-family: monospace;
+  line-height: 1.2em;
+  word-wrap: break-word;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.reveal code {
+  font-family: monospace;
+  text-transform: none;
+  background: var(--dracula-selection);
+  color: var(--dracula-fg);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.reveal pre code {
+  display: block;
+  padding: 5px;
+  overflow: auto;
+  max-height: 400px;
+  word-wrap: normal;
+}
+
+/* Tables */
+.reveal table {
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.reveal table th {
+  font-weight: bold;
+}
+
+.reveal table th,
+.reveal table td {
+  text-align: left;
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  border-bottom: 1px solid;
+}
+
+.reveal table th[align="center"],
+.reveal table td[align="center"] {
+  text-align: center;
+}
+
+.reveal table th[align="right"],
+.reveal table td[align="right"] {
+  text-align: right;
+}
+
+.reveal table tbody tr:last-child th,
+.reveal table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Blockquotes */
+.reveal blockquote {
+  display: block;
+  position: relative;
+  width: 70%;
+  margin: 20px auto;
+  padding: 5px;
+  font-style: italic;
+  background: var(--dracula-selection);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reveal blockquote p:first-child,
+.reveal blockquote p:last-child {
+  display: inline-block;
+}
+
+/* Customized styles */
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--dracula-cyan);
+}
+
+.reveal .controls {
+  color: var(--dracula-cyan);
+}
+
+.reveal .slide-number {
+  color: var(--dracula-fg);
+}
+
+/* Override */
+.reveal, .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+.reveal pre {
+    box-shadow: none;
+}
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    text-transform: none;
+    font-weight: 700;
+}
+.reveal p, .reveal ul, .reveal ol {
+    font-weight: 300;
+}
+.reveal strong, .reveal b {
+    font-weight: 400;
+}
+.reveal ul {
+    list-style-type: none;
+}
+.reveal ul li {
+    position: relative;
+    padding-left: 1.5em;
+    color: var(--dracula-violet); /* Changed from Nord10 */
+}
+.reveal ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+}
+.reveal ul ul {
+    list-style-type: none;
+    margin-left: 1em;
+}
+.reveal ul ul li {
+    color: var(--dracula-green); /* Changed from Nord14 */
+}
+.reveal ul ul li::before {
+    content: '+';
+    font-weight: bold;
+}

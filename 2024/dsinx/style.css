@@ -1,0 +1,174 @@
+/* Import the font */
+@import url('https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c:wght@400;700&display=swap');
+
+/* Custom Reveal.js Theme based on Horizon Color Scheme */
+.reveal {
+  background-color: #1C1E26; /* Horizon background */
+  color: #E9E9F4; /* Light text color */
+  font-family: 'Rounded Mplus 1c', sans-serif; /* Set default font */
+}
+
+.reveal .slides section {
+  color: #E9E9F4;
+  font-family: 'Rounded Mplus 1c', sans-serif; /* Apply font to all sections */
+}
+
+.reveal h1, .reveal h2, .reveal h4, .reveal h5, .reveal h6 {
+  color: #E9E9F4; /* Headings color */
+  /* border-bottom: 2px solid #FAB795; /* Horizon orange for headings underline */
+  font-family: 'Rounded Mplus 1c', sans-serif; /* Apply font to headings */
+}
+
+.reveal h3 {
+  color: #E95678;
+}
+
+
+.reveal a {
+  color: #E95678; /* Horizon pink for links */
+  font-family: 'Rounded Mplus 1c', sans-serif;
+}
+
+.reveal blockquote {
+  color: #C7C9CB; /* Lighter gray for blockquotes */
+  border-left: 5px solid #FAB795; /* Horizon orange for blockquote border */
+  font-family: 'Rounded Mplus 1c', sans-serif;
+}
+
+.reveal pre {
+  background-color: #1C1E26; /* Same background for code blocks */
+  color: #E9E9F4; /* Light text color */
+  border: 1px solid #FAB795; /* Orange border for emphasis */
+  padding: 10px;
+  border-radius: 5px;
+  font-family: 'Fira Code', monospace; /* Font for code blocks */
+}
+
+.reveal code {
+  color: #FFB454; /* Horizon yellow for inline code */
+  background-color: #1C1E26;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Fira Code', monospace; /* Font for inline code */
+}
+
+.reveal strong {
+  color: #FFB454; /* Yellow for strong text */
+}
+
+.reveal .controls {
+  background-color: #1C1E26; /* Control background */
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-down {
+  color: #E9E9F4; /* Control arrows */
+}
+
+.reveal .slide-number {
+  color: #C7C9CB; /* Lighter gray for slide numbers */
+  font-family: 'Rounded Mplus 1c', sans-serif; /* Apply font to slide numbers */
+}
+
+/* Custom Horizon color scheme for highlight.js (code highlighting) */
+.hljs {
+  background: #1C1E26; /* Background for code block */
+  color: #E9E9F4; /* Foreground text color */
+  font-family: 'Fira Code', monospace; /* Use Fira Code for highlighted code */
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-doctag {
+  color: #E95678; /* Horizon pink for keywords */
+}
+
+.hljs-name,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-bullet,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-deletion {
+  color: #FAB795; /* Horizon orange for names/attrs */
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-addition,
+.hljs-link {
+  color: #59E3C3; /* Horizon green for strings/symbols */
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #6C6F93; /* Horizon darker gray for comments/quotes */
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-operator {
+  color: #FFB454; /* Horizon yellow for numbers/operators */
+}
+
+.hljs-title,
+.hljs-class .hljs-title {
+  color: #25B2BC; /* Horizon blue for titles */
+}
+
+
+/* override */
+.reveal .title {
+  font-size: 32pt;
+  color: #FAB795;
+}
+
+.reveal ul {
+  list-style-position: outside; /* Keeps bullets outside the text for alignment */
+  padding-left: 0; /* Remove extra padding */
+  margin-left: 0; /* Align to the container */
+}
+
+.reveal ul li {
+  display: list-item; /* Ensure items are rendered as a list */
+  margin-bottom: 0.5em; /* Add space between list items */
+  line-height: 1.5; /* Better readability */
+  padding-left: 1.5em; /\* Control space between bullet and text *\/ */
+  text-indent: 0em; /\* Keep bullet aligned with text *\/ */
+  max-width: fit-content; /\* Ensure list adapts to the widest item *\/ */
+}
+
+/* Optional: Custom Bullet Styling */
+.reveal ul li::marker {
+  color: #FAB795; /* Horizon orange for bullets */
+}
+
+.reveal .centrelist {
+  display: flex;
+  justify-content: center;
+}
+
+/* Language specific colours */
+.reveal .py {
+  color: #27D796;
+}
+
+.reveal .elixir {
+  color: #6C6F93;
+}
+
+.reveal .rust {
+  color: #F09383;
+}
+
+.reveal .julia {
+  color: #25B2BC;
+}
+
+.reveal .haskell {
+  color: #B877DB;
+}

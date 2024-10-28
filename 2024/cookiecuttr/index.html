@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cookiecuttR</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
-    <link rel="stylesheet" href="nord.css">
+    <!-- <link rel="stylesheet" href="nord.css"> -->
+    <link rel="stylesheet" href="dracula.css">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,15 +18,13 @@
             </section>
 
             <section>
-                <h2>What is cookiecuttR?</h2>
-                <ul>
-                    <li class="fragment">Bash script for creating R project templates</li>
-                    <li class="fragment">Supports various project types</li>
-                    <li class="fragment">Streamlines project setup process</li>
-                </ul>
+              <section><h2>What is cookiecuttR?</h2></section>
+              <section><h3>Streamline project setup process</h3></section>
             </section>
 
             <section>
+              <section><h2>Why cookiecuttR?</h2></section>
+              <section>
                 <h2>Key Features</h2>
                 <ul>
                     <li class="fragment">Interactive prompts for project information</li>
@@ -34,62 +33,63 @@
                     <li class="fragment">Automatic license inclusion</li>
                     <li class="fragment">Git integration</li>
                 </ul>
-            </section>
+              </section>
 
-            <section>
-                <h2>Template Options</h2>
-                <ul>
-                    <li class="fragment">Standard R package</li>
-                    <li class="fragment">Tidy package</li>
-                    <li class="fragment">Standard project</li>
-                </ul>
-            </section>
 
-            <section>
-                <h2>Git Integration</h2>
-                <ul>
-                    <li class="fragment">Automatic git initialization</li>
-                    <li class="fragment">Remote repository options</li>
-                    <li class="fragment">Repository creation on initial push</li>
-                    <li class="fragment">Checks for existing repositories</li>
-                </ul>
-            </section>
+              <section>
+                  <h2>Template Options</h2>
+                  <ul>
+                      <li class="fragment">Standard R package</li>
+                      <li class="fragment">Tidy package</li>
+                      <li class="fragment">Standard project</li>
+                  </ul>
+              </section>
 
-            <section>
-                <h2>Git Hooks Submodule</h2>
-                <p>Includes a 'hook' submodule with:</p>
-                <ul>
-                    <li class="fragment">Automatic changelog generation</li>
-                    <li class="fragment">Data sanitisation</li>
-                    <li class="fragment">Commit size checks</li>
-                    <li class="fragment">Automatic formatting and linting</li>
-                    <li class="fragment">R package documentation regeneration</li>
-                </ul>
-            </section>
+              <section>
+                  <h2>Git Integration</h2>
+                  <ul>
+                      <li class="fragment">Automatic git initialization</li>
+                      <li class="fragment">Remote repository options</li>
+                      <li class="fragment">Repository creation on initial push</li>
+                      <li class="fragment">Checks for existing repositories</li>
+                  </ul>
+              </section>
 
-            <section>
-                <h2>Document Templating</h2>
-                <ul>
-                    <li class="fragment">Automatic generation of:
-                        <ul>
-                            <li class="fragment">CONTRIBUTING.md</li>
-                            <li class="fragment">README.md</li>
-                            <li class="fragment">Other common project documents</li>
-                        </ul>
-                    </li>
-                    <li class="fragment">Project name automatically included</li>
-                </ul>
-            </section>
+              <section>
+                  <h2>Git Hooks Submodule</h2>
+                  <p>Includes <a href="https://gitlab.data.trade.gov.uk/ag-data-science/utils/hook">hook</a> submodule</p>
+                  <ul>
+                      <li class="fragment">Automatic changelog generation</li>
+                      <li class="fragment">Data sanitisation</li>
+                      <li class="fragment">Commit size checks</li>
+                      <li class="fragment">Automatic formatting and linting</li>
+                      <li class="fragment">R package documentation regeneration</li>
+                  </ul>
+              </section>
 
-            <section>
-                <h2>Sensitive Project Handling</h2>
-                <ul>
-                    <li class="fragment">Special .gitignore files for sensitive projects</li>
-                    <li class="fragment">Includes common data types</li>
-                    <li class="fragment">Helps prevent accidental data exposure</li>
-                </ul>
-            </section>
+              <section>
+                  <h2>Document Templating</h2>
+                  <ul>
+                      <li class="fragment">Automatic generation of:
+                          <ul>
+                              <li class="fragment">CONTRIBUTING.md</li>
+                              <li class="fragment">README.md</li>
+                              <li class="fragment">Other common project documents</li>
+                          </ul>
+                      </li>
+                      <li class="fragment">Project name automatically included</li>
+                  </ul>
+              </section>
 
+              <section>
+                  <h2>Sensitive Project Handling</h2>
+                  <ul>
+                      <li class="fragment">Special .gitignore files for sensitive projects</li>
+                      <li class="fragment">Includes common data types</li>
+                      <li class="fragment">Helps prevent accidental data exposure</li>
+                  </ul>
+              </section>
+            </section>
             <section>
                 <h2>Usage Example</h2>
                 <pre><code class="fragment">
@@ -108,16 +108,14 @@
             </section>
 
             <section>
-                <h1>Thank You!</h1>
-                <p>Start using cookiecuttR for your R projects today!</p>
-                <p><a href="https://gitlab.data.trade.gov.uk/ag-data-science/utils/cookiecuttr">gitlab:cookiecuttr</a></p>
+                <h1>Get it!</h1>
+                <p>🍪
+                  <a href="https://gitlab.data.trade.gov.uk/ag-data-science/utils/cookiecuttr">gitlab:cookiecuttr</a>
+                🍪</p>
+
             </section>
         </div>
     </div>
-
-
-
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
@@ -125,7 +123,7 @@
     <script>
         Reveal.initialize({
             hash: true,
-            transition: 'slide'
+            transition: 'fade'
         });
 
 

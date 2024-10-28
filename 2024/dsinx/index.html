@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>dsinx</title>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="particles.css">
+
+  <!-- Include Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Title Slide -->
+      <section class="cover-slide">
+        <div id="particles-js"></div>
+        <h1>Removing the shackles</h1>
+        <h3>Exploring data science in other languages</h3>
+      </section>
+
+
+      <!-- Introduction -->
+      <section>
+        <section><div class="title">Introduction</div></section>
+
+        <section>
+          <div class="centrelist">
+          <ul>
+            <li>Domination</li>
+            <li class="fragment">Alternatives</li>
+            <ul>
+              <li class="fragment">Elixir</li>
+              <li class="fragment">Rust</li>
+              <li class="fragment">Julia</li>
+              <li class="fragment">Haskell</li>
+            </ul>
+            <li class="fragment">Comparisons</li>
+          </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Tooling -->
+      <section>
+        <section><div class="title">Tooling</div></section>
+        <section>
+          I will use my preferred tooling setup, which includes <strong>nix</strong>, <strong>emacs</strong> with Doom Emacs, and various language servers and plugins. I prefer working with a REPL and file buffer setup over notebook-based environments.
+        </section>
+        <section>>We will perform two main tasks: an Exploratory Data Analysis (EDA) and a Machine Learning (ML) task (Random Forest vs Neural Network), using key metrics to assess performance.</section>
+      </section>
+
+      <!-- Python Section -->
+      <section>
+        <section><div class="title py">Python</div></section>
+      </section>
+
+
+      <!-- Haskell Section -->
+      <section>
+        <section><div class="title haskell">Haskell</section>
+      </section>
+
+
+      <!-- Elixir Section -->
+      <section>
+        <section><div class="title elixir">Elixir</section>
+      </section>
+
+
+      <!-- Julia Section -->
+      <section>
+        <section><div class="title julia">Julia</section>
+      </section>
+
+
+      <!-- Rust Section -->
+      <section>
+        <section><div class="title rust">Rust</section>
+      </section>
+
+
+
+      <!-- Summary Slide -->
+      <section>
+        <h2>Summary & Comparison</h2>
+        <p>In conclusion, here's how these languages compare based on ease of setup, ecosystem, learning resources, performance, and simplicity of code:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Language</th>
+              <th>Ease of Setup</th>
+              <th>Ecosystem</th>
+              <th>Learning Resources</th>
+              <th>Performance</th>
+              <th>Simplicity of Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Python</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>R</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <!-- Repeat rows for Elixir, Rust, Julia, Haskell -->
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- Include Reveal.js -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+  <script>
+    function initParticles() {
+      const particlesContainer = document.getElementById('particles-js');
+      const scale = window.devicePixelRatio || 1;
+      const width = particlesContainer.offsetWidth * scale;
+      const height = particlesContainer.offsetHeight * scale;
+
+      particlesJS.load('particles-js', 'particlesjs-config.json', function() {
+        console.log('Particles.js loaded');
+        const canvas = particlesContainer.querySelector('canvas');
+        if (canvas) {
+          canvas.width = width;
+          canvas.height = height;
+          canvas.style.width = `${particlesContainer.offsetWidth}px`;
+          canvas.style.height = `${particlesContainer.offsetHeight}px`;
+
+          // Force particle redraw at the new resolution
+          const pJSDom = pJSDom[0];
+          pJSDom.pJS.fn.vendors.destroypJS();
+          pJSDom.pJS.fn.vendors.drawShape(pJSDom.pJS, 0, 0, 1, 1);
+          pJSDom.pJS.fn.particlesCreate();
+          pJSDom.pJS.fn.particlesDraw();
+        }
+      });
+    }
+
+    function reinitParticles() {
+      const particlesContainer = document.getElementById('particles-js');
+      if (particlesContainer) {
+        particlesContainer.innerHTML = '';
+        initParticles();
+      }
+    }
+
+    Reveal.initialize({
+      transition: 'fade',
+      hash: true,
+    });
+
+
+    // Load Particles.js on the cover slide
+    Reveal.on('slidechanged', function(event) {
+      if (event.indexh === 0) { // Assuming the cover slide is the first slide
+        initParticles();
+      }
+    });
+
+    // Also load Particles.js when the page is first loaded
+    window.addEventListener('load', function() {
+      if (Reveal.getIndices().h === 0) {
+        initParticles();
+      }
+    });
+
+    // Reinitialize particles when window is resized
+    window.addEventListener('resize', reinitParticles);
+  </script>
+</body>
+</html>
