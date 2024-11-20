@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Functional Programming: Principles and Practice</title>
+    <title>Functional Programming</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reset.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css" type="text/css">
     <link rel="stylesheet" href="./nord.css" type="text/css">
@@ -25,7 +25,7 @@
     <script src="./highlight/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/math/math.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
   </head>
   <body>
     <div class="reveal">
@@ -37,14 +37,13 @@
 
         <!-- What is Functional Programming? -->
         <section>
-          <section>
             <h2>The what</h2>
-          </section>
         </section>
         <section>
           <section><h3>Functions</h3></section>
           <section>
-            <p>Programs as mathematical functions</p>
+            <p>Programs as expressions</p>
+            Combining mathematical functions to provide the functionality you want.
             <ul>
               <li class="fragment">A relation between a set of inputs and a set of possible outputs</li>
               <li class="fragment">The function itself defines and represents the relationship</li>
@@ -63,6 +62,8 @@
             \[ \begin{aligned} f(1) &amp; = A \\ f(1) &amp; = B \\ f(2) &amp; = C \end{aligned} \]
           </section>
           <section>
+            <h3>Examples</h3>
+            <p>A code example</p>
             <pre>
               <code class="python">
 # Non-functional approach
@@ -79,6 +80,9 @@ def calculate_tax(income, tax_rate):
           </section>
         </section>
 
+        <section>
+            <h2>The why</h2>
+        </section>
         <!-- Referential Transparency -->
         <section>
           <section>
@@ -104,37 +108,25 @@ print(get_random_number(42))  # Repeatable result
           </section>
         </section>
 
-        <!-- Arity -->
+        <!-- Pure Functions -->
         <section>
           <section>
-            <h2>Arity in Functional Programming</h2>
-            <p>The number of arguments a function takes</p>
+            <h2>Pure Functions</h2>
+            <p>Functions with no side effects that always return the same output for the same input</p>
           </section>
           <section>
-            <h3>Examples</h3>
-            <pre><code class="r">
-# Function with different arities
-f0 <- function() {
-    return(42)  # Zero-arity function
-}
+            <h3>Example</h3>
+            <pre><code class="python">
+# Impure function
+processed_items = []
+def process_data(data):
+    for item in data:
+        processed_items.append(item * 2)
+    return processed_items
 
-f1 <- function(x) {
-    return(x * 2)  # Unary function
-}
-
-f2 <- function(x, y) {
-    return(x + y)  # Binary function
-}
-
-f3 <- function(x, y, z) {
-    return(x * y + z)  # Ternary function
-}
-
-# Demonstrating different function calls
-print(f0())        # 42
-print(f1(5))       # 10
-print(f2(3, 4))    # 7
-print(f3(2, 3, 1)) # 7
+# Pure function
+def process_data(data):
+    return [item * 2 for item in data]
             </code></pre>
           </section>
         </section>
@@ -185,6 +177,14 @@ def multiply_decorated(x, y):
 print(multiply_decorated(3)(4))  # 12
 print(multiply_decorated(3, 4))  # 12
             </code></pre>
+
+            <aside class="notes">
+              Why the heck might you want to do this? Well it actually makes for writing generic functions which you can tailor to specific cases very easy.
+
+              You could write a function which works on tables from Data Workspace schemas. With this approach of currying or partially applying the function you can
+              create a function which is extremely generic and shareable but also then reduce the overhead of having to pass so many arguments by specialising it
+              to your schema. This will help you to reduce the visual density of such programs and make it easier to maintain, develop and debug.
+            </aside>
           </section>
         </section>
 
@@ -201,7 +201,7 @@ print(multiply_decorated(3, 4))  # 12
             </p>
           </section>
           <section>
-            <h3>Why??</h3>
+            <h3>But Why??</h3>
             <p>Lots of problems suit this kind of approach</p>
           </section>
           <section>
@@ -317,6 +317,29 @@ class Tree:
         if self.right:
             yield from self.right
             </code></pre>
+
+            <aside class="notes">
+              Let's break this down in detail.
+
+              This defines a binary tree data structure using Python's dataclass. Each node has:
+
+              - A value of any type
+              - An optional left child (another Tree or None)
+              - An optional right child (another Tree or None)
+
+              The __iter__ method implements an in-order traversal.
+              This method does something quite clever.
+
+              - If there's a left child, it first recursively yields all values from the left subtree
+              - Then it yields the current node's value
+              - If there's a right child, it recursively yields all values from the right subtree
+
+              This creates an in-order traversal of the binary tree, which means:
+
+              - Left subtree is processed first
+              - Then the current node
+              - Then the right subtree
+            </aside>
           </section>
           <section>
             <h3>Examples</h3>
@@ -336,75 +359,112 @@ tree = Tree(
 for value in tree:
     print(value)  # Prints: 1, 3, 4, 5, 6, 7, 8
             </code></pre>
+
+            <aside class="notes">
+              This prints the values in sorted order because it's a binary search tree where:
+
+              - Left subtree values are less than the current node
+              - Right subtree values are greater than the current node
+
+              Use cases for this structure include:
+
+              - Implementing binary search trees
+              - Efficient sorted data storage
+              - Creating custom iterators
+              - Tree-based algorithms (traversal, searching, etc.)
+
+              Key benefits:
+
+              - Allows treating the tree like a standard Python iterator
+              - Provides a clean, recursive way to traverse tree structures
+              - Supports lazy evaluation (values are generated on-the-fly)
+            </aside>
           </section>
           <section>
-            Here are some Python functor examples beyond lists:
+            <h3>Examples</h3>
+            <p>Optional/Maybe Types</p>
 
-            1. Optional/Maybe Types
-            ```python
-            from typing import Optional
-
-            class Optional:
-            def map(self, func):
-            return func(self.value) if self.value is not None else None
-            ```
-
-            2. Generator Comprehensions
-            ```python
-            def generator_map(gen, func):
-            return (func(x) for x in gen)
-            ```
-
-            3. Iterator Types
-            ```python
-            class MappableIterator:
-            def map(self, func):
-            return map(func, self.items)
-            ```
-
-            4. Custom Container Classes
-            ```python
-            class CustomContainer:
-            def __init__(self, value):
-            self._value = value
-
-            def map(self, func):
-            return CustomContainer(func(self._value))
-            ```
-
-            5. Dictionary Mapping
-            ```python
-            def dict_map(d, func):
-            return {k: func(v) for k, v in d.items()}
-            ```
-
-            These examples demonstrate how different data structures can implement functor-like behavior through mapping operations that transform contained values while preserving their original structure.
-        </section>
-
-        </section>
-
-        <!-- Pure Functions -->
-        <section>
-          <section>
-            <h2>Pure Functions</h2>
-            <p>Functions with no side effects that always return the same output for the same input</p>
-          </section>
-          <section>
-            <h3>Python Example</h3>
             <pre><code class="python">
-# Impure function
-processed_items = []
-def process_data(data):
-    for item in data:
-        processed_items.append(item * 2)
-    return processed_items
+from typing import Optional
 
-# Pure function
-def process_data(data):
-    return [item * 2 for item in data]
+class Optional:
+    def map(self, func):
+        return func(self.value) if self.value is not None else None
+            </code></pre>
+
+            <aside class="notes">
+              Okay that last one was a bit of a complicated example. Let's go with something simpler.
+
+              The Optional type allows you to map over it by its very definition. This let's you
+              evaluate functions against the internal type of the Optional and not have to worry about
+              extracting them out of it. Of course with the typing in python and R being dynamic your
+              function will need to be able to handle whatever it might come across but this simplifies use
+              against an object that could be one of multiple different types.
+            </aside>
+          </section>
+          <section>
+            <h3>Examples</h3>
+            <p>Generator Comprehensions</p>
+
+            <pre><code class="python">
+def generator_map(gen, func):
+    return (func(x) for x in gen)
+            </code></pre>
+
+            <aside class="notes">
+              These are super useful. If your input data is presented as a generator stream, then you
+              don't necessarily want to evaluate all of your stream to get the values and then apply
+              a function to them. This lets you create a new generator with your function applied!
+            </aside>
+          </section>
+          <section>
+            <h3>Examples</h3>
+            <p>Iterator Types</p>
+
+            <pre><code class="python">
+class MappableIterator:
+    def map(self, func):
+        return map(func, self.items)
             </code></pre>
           </section>
+          <section>
+            <h3>Examples</h3>
+            <p>Custom Container Classes</p>
+
+            <pre><code class="python">
+class CustomContainer:
+    def __init__(self, value):
+        self._value = value
+
+        def map(self, func):
+            return CustomContainer(func(self._value))
+            </code></pre>
+          </section>
+          <section>
+            <h3>Examples</h3>
+            <p>Dictionary Mapping</p>
+
+            <pre><code class="python">
+def dict_map(d, func):
+    return {k: func(v) for k, v in d.items()}
+            </code></pre>
+          </section>
+          <section>
+            These examples demonstrate how different data structures can implement functor-like
+            behavior through mapping operations that transform contained values while preserving
+            their original structure.
+
+            <aside class="notes">
+              In Python, functors aren't as fundamental as in purely functional languages
+              like Haskell, but they're still a powerful concept. While Python doesn't have
+              built-in functor protocols like some languages, we can create generic functor-like
+              operations using protocols, abstract base classes, or duck typing.
+
+              Included in the repo is an example of such an implementation.
+            </aside>
+          </section>
         </section>
+
 
         <!-- Why Functional Programming? -->
         <section>
@@ -428,272 +488,208 @@ def process_data(data):
         <!-- Functional Programming in Python/R -->
         <section>
           <section>
-            <h2>Functional Programming in Python/R</h2>
-            <p>Built-in functional programming support</p>
+            <h2>Functional Programming in Python & R</h2>
           </section>
           <section>
             <h3>Python Functional Tools</h3>
-            <pre><code class="python">
-# Map, Filter, Reduce
-from functools import reduce
+            <ul>
+              <li>python has itertools and functools</li>
+              <li>In R you want to use purrr</li>
+            </ul>
+          </section>
+        </section>
 
-numbers = [1, 2, 3, 4, 5]
+        <!-- What python and R don't let us have -->
+        <section>
+          <section>
+            <h1>🐘</h1>
+            <aside class="notes">
+              Time to talk about the elephant in the room.
 
-# Map
-squared = list(map(lambda x: x**2, numbers))
+              I cannot talk about some key tenets of functional programming languages using
+              R and python as the vehicles in which to do so. There are some key ideas that
+              are not there.
 
-# Filter
-even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+              However, understanding concepts from functional programming will make you a better
+              programmer.
 
-# Reduce
-product = reduce(lambda x, y: x * y, numbers)
-            </code></pre>
+              Let's go through a few of them.
+            </aside>
+          </section>
+          <section>
+              <h3>Immutability</h3>
+
+              <ul>
+                <li class="fragment">Predictability and reasoning</li>
+                <li class="fragment">Concurrency and parallel programming</li>
+                <li class="fragment">Functional purity and referential transparency</li>
+                <li class="fragment">Memory efficiency and structural sharing</li>
+                <li class="fragment"><span id="no">Error prevention</span></li>
+              </ul>
+
+              <aside class="notes">
+                - immutability: with this, you can be certain that the original input remains unchanged, making a function's behavior more predictable and easier to understand.
+                - concurrency: immutable data eliminates many concurrency issues because data can't be unexpectedly modified by different threads.
+                - purity: pure functions with immutable data always produce the same output for the same input, making them:
+                  + Easier to test
+                  + Easier to debug
+                  + More predictable
+                  + Amenable to memoization and optimization
+                - efficiency: this is implemented compiler side in modern functional programming languages
+                - errors: you can eliminate whole classes of bug types by having immutable data
+              </aside>
+          </section>
+          <section>
+            <h3>Philosphy</h3>
+            <ul>
+              <li>Mimics mathematical functions</li>
+              <li>Reduces cognitive load</li>
+              <li>Aligns with declarative programming style</li>
+              <li>Transformations over mutations</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Tradeoffs</h3>
+            <ul>
+              <li>Can be less performang for very large data structures</li>
+              <li>Requires a different approach</li>
+              <li>Generally higher memory usage</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Other features</h3>
+
+            <table>
+              <tr>
+                <td>Feature</td>
+                <td>R</td>
+                <td>python</td>
+              </tr>
+              <tr>
+                <td>First-class functions</td>
+                <td>✅</td>
+                <td>✅</td>
+              </tr>
+              <tr>
+                <td>Pattern matching</td>
+                <td>❌</td>
+                <td>✅</td>
+              </tr>
+              <tr>
+                <td>Algebraic data types</td>
+                <td>❌</td>
+                <td>❌</td>
+              </tr>
+            </table>
+
+            <aside class="notes">
+              - first-class functions: yeah, they both have this, that's great
+              - pattern matching: introduced in python 3.10, see my snippets for an example!
+              - algebraic data types: they're so important and you don't get to have them.
+
+              Why ADTs?
+              Algebraic data types (ADTs) are important in programming because they provide
+              a structured and expressive way to model data and encapsulate logic.
+
+              1. Rich and Expressive Modeling
+                  ADTs allow you to define data structures that closely align with the domain you're working in. For example, you can represent a Shape as a sum type with constructors like Circle, Rectangle, or Triangle, capturing all possible variants in a clear and concise way.
+                  This expressiveness helps ensure that invalid states are unrepresentable.
+
+
+              2. Type Safety
+                  By defining data using ADTs, the compiler can enforce constraints, preventing many kinds of runtime errors. For example, pattern matching on an ADT ensures that all possible cases are considered (when exhaustiveness is enforced), reducing the likelihood of unhandled cases.
+
+
+              3. Pattern Matching
+                  ADTs pair naturally with pattern matching, enabling clean and declarative handling of different cases. This makes the code easier to read, maintain, and debug compared to verbose conditional logic.
+
+
+              4. Composition
+                  ADTs are composable. You can create complex types by combining simpler ones using sum types (e.g., Either, Maybe) and product types (e.g., tuples or records).
+                  This modularity simplifies complex systems by breaking them into manageable pieces.
+
+
+              5. Expressing Intent
+                  ADTs communicate the programmer's intent more clearly than traditional imperative code. For example, a Result type (Success | Failure) explicitly signals that a function may succeed or fail, making the API more self-documenting.
+
+
+              6. Robust Refactoring
+                  Since ADTs are tied to the type system, changes to their structure are easier to propagate across the codebase. The compiler helps identify all places affected by the change, reducing the risk of introducing errors during refactoring.
+
+
+              7. Immutability
+                 Many functional languages enforce immutability for ADTs, making them ideal for concurrent and parallel programming. Immutable data reduces side effects and makes reasoning about code easier.
+
+              8. Foundation for Functional Programming
+                  ADTs are foundational to functional programming. They enable functional patterns like map, flatMap, and folds to operate seamlessly, facilitating the use of higher-order functions and monads.
+
+
+              9. Data Validation and Default Safety
+                  Using ADTs such as Maybe or Either helps model optional or fallible computations explicitly, avoiding the pitfalls of null or unchecked exceptions common in other paradigms.
+            </aside>
           </section>
         </section>
 
         <!-- Learning Resources -->
         <section>
-          <h2>Learn More About Functional Programming</h2>
+          <h2>Learn</h2>
           <ul>
-            <li>Books:
-              <ul>
-                <li>"Functional Programming in Python" by Steven Lott</li>
-                <li>"Functional Programming in R" by Thomas Mailund</li>
-              </ul>
-            </li>
-            <li>Online Courses: Coursera, edX functional programming courses</li>
-            <li>Websites: Real Python, GeeksforGeeks</li>
+            <li><span id="book">Functional Python Programming</span>: Steven Lott</li>
+            <li><span id="book">Functional Programming in R4</span>: Thomas Mailund</li>
           </ul>
         </section>
 
         <!-- Languages to Explore -->
         <section>
-          <h2>Functional Programming Languages</h2>
+          <h2>Languages</h2>
           <ul>
-            <li>Haskell (Pure functional)</li>
-            <li>Clojure (Lisp dialect)</li>
-            <li>Scala (Functional + Object-Oriented)</li>
-            <li>Erlang (Concurrent functional)</li>
-            <li>F# (Functional .NET language)</li>
+            <li class="fragment">Haskell</li>
+            <li class="fragment">Clojure</li>
+            <li class="fragment">Scala</li>
+            <li class="fragment">Elixir</li>
+            <li class="fragment">F#</li>
+            <li class="fragment">Rust<span id="no">*</span></li>
           </ul>
+
+          <aside class="notes">
+            - Haskell is the best. Haskell Book is the go to.
+            - Clojure is a Lisp dialect, and there's a very good book called Clojure for the Brave and Bold.
+            - Scala is what Twitter/X is written in. No idea where best to learn it though.
+            - Elixir has a very good data science base and can be learnt through Joy of Elixir pretty well.
+            - F#. Microsoft doing functional programming.
+            - Rust. Okay, this one has a caveat (hence the asterisk). Its not a functional programming language, but
+              does include the following features.
+              + Immutability by default
+              + First-class and higher-order functions
+              + Powerful pattern matching
+              + Algebraic data types (enums)
+              + Option and Result types (similar to Maybe/Either in functional languages)
+              + Iterator methods that support functional transformations
+              + Closure support
+              + Generics and traits that enable functional abstractions
+          </aside>
         </section>
 
         <!-- Closing Slide -->
         <section>
-          <h2>Functional Programming</h2>
-          <p>A powerful paradigm that can transform how you think about coding</p>
+          <h1>😌</h1>
+          <aside class="notes">
+            You'll be relieved to hear that this is the end.
+
+            But what was the point? I'm only here to evangelise the functional programming paradigm. I promise you that
+            if you go and put the time into thinking in this way and implementing programs using this approach then
+            your code will be better. Hands down, in every way. It will help you to think more about representing the
+            problem and your solution to it far better than doing it imperatively or in a stateful way. It will make
+            you a better programmer for it.
+          </aside>
         </section>
       </div>
     </div>
 
-    <script>
-      Reveal.initialize({
-        controls: true,
-        progress: true,
-        history: true,
-        center: true,
-        transition: 'slide',
-        plugins: [RevealHighlight]
-      });
-    </script>
-  </body>
-</html>
-<body>
-  <div class="reveal">
-    <div class="slides">
-      <!-- Title Slide -->
-      <section>
-        <h1>Functional Programming</h1>
-        <h3>Transforming How We Think About Code</h3>
-      </section>
-
-      <!-- What is Functional Programming? -->
-      <section>
-        <section>
-          <h2>What is Functional Programming?</h2>
-          <p>A programming paradigm that models programs as combinations of mathematical functions</p>
-        </section>
-        <section>
-          <h3>Mathematical Function Analogy</h3>
-          <pre><code class="python">
-# Non-functional approach
-def calculate_tax(income):
-    global tax_rate
-    tax_rate = 0.2  # Side effect: modifying global state
-    return income * tax_rate
-
-# Functional approach
-def calculate_tax(income, tax_rate):
-    return income * tax_rate
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Referential Transparency -->
-      <section>
-        <section>
-          <h2>Referential Transparency</h2>
-          <p>A function always produces the same output for the same input</p>
-        </section>
-        <section>
-          <h3>Example in Python</h3>
-          <pre><code class="python">
-# Non-transparent function
-import random
-
-def get_random_number():
-    return random.random()  # Different output each time
-
-# Transparent function
-def square(x):
-    return x * x  # Always the same output for same input
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Pure Functions -->
-      <section>
-        <section>
-          <h2>Pure Functions</h2>
-          <p>Functions with no side effects that always return the same output for the same input</p>
-        </section>
-        <section>
-          <h3>Python Example</h3>
-          <pre><code class="python">
-# Impure function
-def process_data(data):
-    global processed_items
-    processed_items = []
-    for item in data:
-        processed_items.append(item * 2)
-    return processed_items
-
-# Pure function
-def process_data(data):
-    return [item * 2 for item in data]
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Tail Recursion -->
-      <section>
-        <section>
-          <h2>Tail Recursion</h2>
-          <p>A recursive function where the recursive call is the last operation</p>
-        </section>
-        <section>
-          <h3>Python Tail Recursion</h3>
-          <pre><code class="python">
-# Traditional recursion
-def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n - 1)
-
-# Tail recursion (conceptual - Python doesn't optimize tail calls)
-def factorial_tail(n, accumulator=1):
-    if n == 0:
-        return accumulator
-    return factorial_tail(n - 1, n * accumulator)
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Immutable Data -->
-      <section>
-        <section>
-          <h2>Immutable Data</h2>
-          <p>Data that cannot be changed after creation</p>
-        </section>
-        <section>
-          <h3>Python Immutability</h3>
-          <pre><code class="python">
-# Mutable approach
-def add_to_list(lst, item):
-    lst.append(item)
-    return lst
-
-# Immutable approach
-def add_to_list(lst, item):
-    return lst + [item]
-
-# Using tuples for immutability
-point = (10, 20)
-# point[0] = 15  # This would raise an error
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Why Functional Programming? -->
-      <section>
-        <h2>Benefits of Functional Programming</h2>
-        <ul>
-          <li>Easier to test and debug</li>
-          <li>More predictable code</li>
-          <li>Simplified parallel processing</li>
-          <li>Reduced state complexity</li>
-        </ul>
-      </section>
-
-      <!-- Functional Programming in Python/R -->
-      <section>
-        <section>
-          <h2>Functional Programming in Python/R</h2>
-          <p>Built-in functional programming support</p>
-        </section>
-        <section>
-          <h3>Python Functional Tools</h3>
-          <pre><code class="python">
-# Map, Filter, Reduce
-from functools import reduce
-
-numbers = [1, 2, 3, 4, 5]
-
-# Map
-squared = list(map(lambda x: x**2, numbers))
-
-# Filter
-even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
-
-# Reduce
-product = reduce(lambda x, y: x * y, numbers)
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Learning Resources -->
-      <section>
-        <h2>Learn More About Functional Programming</h2>
-        <ul>
-          <li>Books: "Functional Programming in Python" by Steven Lott</li>
-          <li>Online Courses: Coursera, edX functional programming courses</li>
-          <li>Websites: Real Python, GeeksforGeeks</li>
-        </ul>
-      </section>
-
-      <!-- Languages to Explore -->
-      <section>
-        <h2>Functional Programming Languages</h2>
-        <ul>
-          <li>Haskell (Pure functional)</li>
-          <li>Clojure (Lisp dialect)</li>
-          <li>Scala (Functional + Object-Oriented)</li>
-          <li>Erlang (Concurrent functional)</li>
-          <li>F# (Functional .NET language)</li>
-        </ul>
-      </section>
-
-      <!-- Closing Slide -->
-      <section>
-        <h2>Functional Programming</h2>
-        <p>A powerful paradigm that can transform how you think about coding</p>
-      </section>
-    </div>
-  </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
   <script>
-    Reveal.initialize({ plugins: [RevealMath.KaTeX] });
+    Reveal.initialize({ plugins: [RevealMath.KaTeX, RevealNotes] });
     hljs.highlightAll();
     Reveal.initialize({
       controls: true,
@@ -703,5 +699,5 @@ product = reduce(lambda x, y: x * y, numbers)
       transition: 'fade'
     });
   </script>
-</body>
+  </body>
 </html>
