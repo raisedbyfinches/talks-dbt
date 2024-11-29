@@ -6,23 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reset.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css" type="text/css">
     <link rel="stylesheet" href="./horizon.css" type="text/css">
-
-    <!-- Highlight.js for syntax highlighting -->
-    <link rel="stylesheet" href="./highlight/styles/nord.css">
-
-    <style>
-      .reveal pre {
-        width: 100%;
-        font-size: 0.6em;
-      }
-      .reveal code {
-        max-height: 500px;
-        border-radius: 5px;
-      }
-    </style>
-
+    
     <!-- Load scripts in head -->
-    <script src="./highlight/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/math/math.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
@@ -252,24 +237,17 @@
 
       </div>
     </div>
-
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+ 
+    <link rel="stylesheet" href="./nord.hl.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.js"></script>
     <script>
-      Reveal.initialize({ plugins: [RevealMath.KaTeX, RevealNotes] });
-      hljs.highlightAll();
-      Reveal.initialize({
+      Reveal.initialize({ 
+        plugins: [RevealMath.KaTeX, RevealNotes, RevealHighlight],
         controls: true,
         progress: true,
         history: true,
         center: true,
-        transition: 'fade'
-      });
-
-      var typed = new Typed('#prompt1', {
-        strings: ['Write a function to find the date of the third Friday of a given month.'],
-        typeSpeed: 50,
-        showCursor: false,
+        transition: 'fade',
       });
     </script>
   </body>

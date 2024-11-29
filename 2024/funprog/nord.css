@@ -34,7 +34,7 @@
 
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 section.has-light-background,
 section.has-light-background h1,
 section.has-light-background h2,
@@ -164,7 +164,7 @@ body {
 .reveal h6 {
     margin: 0 0 20px 0;
     color: #2E3440;
-    font-family: "Delius Swash Caps", sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: normal;
@@ -466,9 +466,10 @@ body {
     background-color: #D08770;
 }
 
-
+/* final fiddles for glitz */
 #no {
   color: #bf616a;
+  font-weight: 800;
 }
 #mono {
   color: #88C0D0;
@@ -476,7 +477,38 @@ body {
 }
 #bold {
   font-weight: 700;
+  color: #5e81ac;
 }
 #book {
   color: #d08770;
+}
+
+.base {
+    top: 100px;
+    left: 0;
+    width: 50vw;
+    height: 120vh;
+    position: absolute;
+    z-index: 0;
+    vertical-align: center;
+    font-size: 25rem;
+    color: #eceff4;
+}
+
+.katex * {
+    font-size: 24pt;
+    margin-top: 10px;
+    color: #d08770;
+}
+
+
+.reveal pre {
+    width: 100%;
+    font-size: 0.6em;
+}
+.reveal code {
+    border-radius: 5px;
+}
+.reveal .hljs-ln-numbers {
+    padding-right: 30px;
 }
