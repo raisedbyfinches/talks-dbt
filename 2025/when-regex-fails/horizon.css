@@ -2,12 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro&display=swap');
 
-
-
-
-
-
-
 section,
 section h1,
 section h2,
@@ -233,14 +227,15 @@ body {
 }
 
 .reveal blockquote {
+    color: #34febb;
     display: block;
     position: relative;
     width: 70%;
     margin: 20px auto;
     padding: 5px;
     font-style: italic;
-    background: #1c242c;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+    background: none;
+    /*box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);*/
     border-radius: 6px;
 }
 
@@ -251,6 +246,10 @@ body {
 
 .reveal q {
     font-style: italic;
+}
+
+.reveal emph {
+  color: #da103f;
 }
 
 .reveal pre {
@@ -267,6 +266,7 @@ body {
 }
 
 .reveal code {
+    background-color: #16161c;
     font-family: "Source Code Pro", monospace;
     text-transform: none;
 }
@@ -445,4 +445,13 @@ h1.title {
   color: #d6e9ff;
   left: 0;
   text-align: left;
+}
+
+.reveal .mono {
+    font-family: "Source Code Pro", monospace;
+    color: #5d8cc0;
+}
+
+.reveal strong {
+  color: #da103f;
 }

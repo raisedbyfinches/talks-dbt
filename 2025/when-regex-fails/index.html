@@ -11,6 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/math/math.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+    <script src="https://kit.fontawesome.com/b0b226af51.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="reveal">
@@ -24,30 +26,509 @@
 
         <!-- What is the talk about slide -->
         <section>
-          <section data-background="#444c55"><h1>The problem</h1></section>
+          <section data-background="#444c55"><h2>The problem</h2></section>
           <section>
-            Horrific regexes
+            <blockquote>
+              When all you have is a hammer, everything looks like a nail
+            </blockquote>
+          </section>
+
+          <section>
+            <h3>A terrible analogy</h3>
+            <ul>
+              <li class="fragment">Regular expressions are like a hammer</li>
+              <li class="fragment">Good for nails <emph>but</emph> rubbish for bolts, screws, or building that new Billy bookcase</li>
+              <li class="fragment">Parsers are a more general concept and give you the full toolbox</li>
+            </ul>
           </section>
         </section>
 
         <section>
-          <section data-background="#444c55"><h1>The solution</h1></section>
+          <section data-background="#444c55"><h2>Parsers</h2></section>
+
           <section>
-            Your future self will thank you
+            <h3>The headache</h3>
+            <p>We've probably all had to write expressions which are a horror show</p>
+            <pre class="fragment">
+            <code data-trim>
+              (?:(?:[a-zA-Z_][a-zA-Z0-9_]*\.)*[a-zA-Z_][a-zA-Z0-9_]*\s*\([^)]*\))
+            </code>
+            </pre>
+
+            <p class="fragment">There is a better answer</p>
+
+            <aside class="notes">
+              <p>
+              We've all been there, you've written a horrific regular expression that looks like this
+              and then you need to still handle nested parentheses and suddenly you're questioning your
+              life choices. That's where parsers shine.
+              </p>
+              <p>
+              Regex works by pattern matching - it's essentially asking "does this string look like this pattern?"
+              Parsers work by understanding structure - they ask "what does this string mean?"
+              This fundamental difference makes parsers much better at handling nested, hierarchical, or context-dependent data.
+              </p>
+            </aside>
+          </section>
+
+          <section>
+            <h2>This is not a war</h2>
+            <ul>
+              <li>Regular expressions are a <emph>type</emph> of parser</li>
+              <li>This talk is to expand you understanding of the topic as a whole</li>
+              <li>Regular expressions are still great</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>The limits of regex</h2>
+
+            <ul>
+              <li>Only recognise patterns which can be matched by a finite state machine</li>
+              <li>Handle <a href="https://en.wikipedia.org/wiki/Chomsky_hierarchy">Type 3</a> grammars</li>
+              <li>Errors can be really cryptic</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>The limits of regex</h2>
+
+            <ul>
+              <li><strong>Balanced structures</strong>: matching parentheses, nested brackets</li>
+              <li><strong>Context dependence</strong>: where the meaning depends on what came before</li>
+              <li><strong>Counting</strong>: ensuring parts have the same number of elements</li>
+              <li><strong>Cross-references</strong>: matching something that appeared earlier</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>The parser hierarchy</h2>
+
+            <ul>
+              <li><emph>Regular expressions</emph> for type 3 grammars</li>
+              <li><emph>Context-free parsers</emph> for type 2 grammars</li>
+              <li><emph>Context-sensitive parsers</emph> for type 1 grammars</li>
+              <li><emph>Unrestricted parsers</emph> for type 0 grammars</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Parsers</h2>
+
+            <ul>
+              <li>Takes text and builds structured representation</li>
+              <li>Captures the meaning and relationships in your data</li>
+              <li>Can very easily be combined with other parsers in a chain</li>
+              <li>You can include a regex parser within your parser</li>
+            </ul>
+          </section>
+        </section>
+
+
+        <section>
+          <section data-background="#444c55"><h2>The solution</h2></section>
+
+          <section>
+            <h3>Rule of thumb</h3>
+
+            <ul>
+              <li>Use <strong>regex</strong> when: Your pattern is truly regular</li>
+              <li>Move to <strong>context-free parsers</strong> when: You need to handle nested structures, balanced delimiters, or hierarchical data</li>
+              <li>Consider more powerful parsers when: You need context sensitivity or cross-references</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>When regex isn't regex</h2>
+
+            <p><strong>regex</strong> in Python's <span class="mono">re</span> aren't pure regex</p>
+
+            <ul>
+              <li>Backreferences</li>
+              <li>Recursive patterns</li>
+              <li>Lookahead/lookbehind assertions</li>
+            </ul>
+
+            <p>It is more powerful, but in a hacky, hard-to-reason-about way</p>
+          </section>
+
+          <section>
+            <h3>Performance</h3>
+
+            <ul>
+              <li>Regular expression engines are fast</li>
+              <li class="fragment">Because they solve a simpler problem</li>
+              <li class="fragment">So make sure you pick the right tool for the right job</li>
+              <li class="fragment">Using the extensions in <span class="mono">re</span> slow it down</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Insight</h3>
+
+            <ul>
+              <li>Increasingly complex patterns</li>
+              <li>Complex text processing</li>
+              <li>Reaching for the right tool</li>
+            </ul>
+
+
+          <aside class="notes">
+            <p>
+              When you find yourself writing increasingly complex regex patterns, you're not just hitting a
+              usability wall - you're bumping against the mathematical limits of what regular languages can express.
+              The moment you need to "remember" something or handle nesting, you've outgrown regex's computational model.
+            </p>
+            <p>
+              Parser combinators aren't overkill for complex text processing - they're the appropriate tool for non-regular
+              parsing tasks. Regex is perfect within its domain, but that domain is smaller than most people realise.
+            </p>
+            <p>
+              So when someone says "just use regex," they're unconsciously assuming your parsing problem fits
+              within regular languages. Once you understand this hierarchy, you can confidently say "this problem
+              requires context-free parsing" and reach for the right tool without second-guessing yourself.
+            </p>
+          </aside>
+          </section>
+        </section>
+
+
+        <section>
+          <section data-background="#444c55"><h2>Example</h2></section>
+          <section>
+            <h3>Parse configuration</h3>
+
+            <pre>
+              <code data-trim>
+                config_text = """
+                server {
+                    listen 80;
+                    location /api {
+                        proxy_pass http://backend;
+                        timeout 30s;
+                        headers {
+                            add X-Custom "value with spaces";
+                            remove Authorization;
+                        }
+                    }
+                    location /static {
+                        root /var/www;
+                    }
+                }
+                upstream backend {
+                    server 192.168.1.1:8080;
+                }
+                """
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h3>A regex approach</h3>
+
+            <pre>
+              <code data-trim data-line-numbers>
+                import re
+                from typing import Dict, Any
+
+                def parse_with_regex(text: str) -> Dict[str, Any]:
+                    """Attempt to parse with regex - fragile and incomplete"""
+                    result = {}
+
+                    simple_pattern = r'(\w+)\s+([^;{]+);'
+                    simple_matches = re.findall(simple_pattern, text)
+
+                    # Try to match blocks - this gets messy quickly
+                    block_pattern = r'(\w+)\s*\{([^{}]*)\}'  # Only works for non-nested!
+                    block_matches = re.findall(block_pattern, text)
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="14">
+                # continued..
+
+                    # Problems:
+                    # 1. Can't handle nested braces properly
+                    # 2. Fails on quoted strings with special chars
+                    # 3. No context awareness
+                    # 4. Becomes exponentially complex for deep nesting
+
+                    for key, value in simple_matches:
+                        result[key] = value.strip()
+
+                    for block_name, block_content in block_matches:
+                        # This will miss the nested 'headers' block entirely!
+                        inner_matches = re.findall(simple_pattern, block_content)
+                        result[block_name] = dict(inner_matches)
+
+                    return result
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Issues</h2>
+
+            <ul>
+              <li>Missing deeply nested 'headers' block</li>
+              <li>Cannot distinguish between different 'server' blocks</li>
+              <li>Fails to handle multiple values properly</li>
+              <li>No context awareness for quoted strings</li>
+              <li>Cannot handle recursive nesting</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>The parser approach</h3>
+
+            <pre>
+              <code data-trim data-line-numbers>
+                  class ConfigParser:
+                      def __init__(self, text: str):
+                          self.text = text
+                          self.pos = 0
+                          self.length = len(text)
+
+                      def peek(self) -> str:
+                          """Look at current character without consuming it"""
+                          return self.text[self.pos] if self.pos < self.length else ''
+
+                      def consume(self) -> str:
+                          """Consume and return current character"""
+                          if self.pos >= self.length:
+                              return ''
+                          char = self.text[self.pos]
+                          self.pos += 1
+                          return char
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="18">
+                  # continued..
+                      def skip_whitespace(self):
+                          """Skip whitespace and comments"""
+                          while self.pos < self.length and self.text[self.pos].isspace():
+                              self.pos += 1
+
+                      def read_identifier(self) -> str:
+                          """Read an identifier (alphanumeric + underscore)"""
+                          start = self.pos
+                          while (self.pos < self.length and
+                                (self.text[self.pos].isalnum()
+                                 or self.text[self.pos] in '_-.')):
+                              self.pos += 1
+                          return self.text[start:self.pos]
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="32">
+                  # continued..
+                      def read_quoted_string(self) -> str:
+                          """Read a quoted string, handling escapes"""
+                          quote_char = self.consume()  # consume opening quote
+                          result = ""
+
+                          while self.pos < self.length:
+                              char = self.peek()
+                              if char == quote_char:
+                                  self.consume()  # consume closing quote
+                                  break
+                              elif char == '\\':
+                                  self.consume()  # consume backslash
+                                  escaped = self.consume()
+                                  result += escaped  # add escaped character
+                              else:
+                                  result += self.consume()
+
+                          return result
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="51">
+                  # continued..
+                      def read_value(self) -> str:
+                          """Read a value (quoted string or unquoted token)"""
+                          self.skip_whitespace()
+
+                          if self.peek() in '"\'':
+                              return self.read_quoted_string()
+                          else:
+                              # Read until semicolon, brace, or whitespace
+                              start = self.pos
+                              while (self.pos < self.length and
+                                    self.text[self.pos] not in ';{} \t\n\r'):
+                                  self.pos += 1
+                              return self.text[start:self.pos].strip()
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="65">
+                  # continued..
+                      def parse_block(self) -> Dict[str, Any]:
+                          """Parse a configuration block"""
+                          result = {}
+
+                          while self.pos < self.length:
+                              self.skip_whitespace()
+
+                              if not self.peek() or self.peek() == '}':
+                                  break
+
+                              # Read directive name
+                              directive = self.read_identifier()
+                              if not directive:
+                                  break
+
+                              self.skip_whitespace()
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="82">
+                  # continued..
+                              if self.peek() == '{':
+                                  # It's a block directive
+                                  self.consume()  # consume '{'
+                                  result[directive] = self.parse_block()
+                                  self.skip_whitespace()
+                                  if self.peek() == '}':
+                                      self.consume()  # consume '}'
+                              else:
+                                  # It's a value directive
+                                  value = self.read_value()
+                                  self.skip_whitespace()
+
+                                  if self.peek() == ';':
+                                      self.consume()  # consume ';'
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code data-trim data-line-numbers data-ln-start-from="97">
+                  # continued..
+                                  # Handle multiple values for same directive
+                                  if directive in result:
+                                      if isinstance(result[directive], list):
+                                          result[directive].append(value)
+                                      else:
+                                          result[directive] = [result[directive], value]
+                                  else:
+                                      result[directive] = value
+
+                          return result
+
+                      def parse(self) -> Dict[str, Any]:
+                          """Parse the entire configuration"""
+                          return self.parse_block()
+
+              </code>
+            </pre>
+          </section>
+
+
+          <section>
+            <h3>That doesn't look "better"</h3>
+
+            <ul>
+              <li>Yes, its a <emph>lot</emph> longer</li>
+              <li>Longer is not worse</li>
+              <li>Your future self will thank you</li>
+              <li>There are libraries available to help simplify the process</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Why the regex approach fails</h3>
+
+            <ul>
+              <li>No nesting awareness</li>
+              <li>Context blindness</li>
+              <li>State ignorance</li>
+              <li>Exponential complexity</li>
+              <li>Maintenance nightmare</li>
+            </ul>
+
+            <aside class="notes">
+            <ul>
+              <li><strong>No nesting awareness</strong>: Can't handle recursive structures</li>
+              <li><strong>Context blindness</strong>: Can't distinguish between different contexts where the same pattern appears</li>
+              <li><strong>State ignorance</strong>: Can't track whether we're inside quotes, comments, or blocks</li>
+              <li><strong>Exponential complexity</strong>: Each new requirement makes the regex exponentially more complex</li>
+              <li><strong>Maintenance nightmare</strong>: Debugging and extending regex becomes nearly impossible</li>
+            </ul>
+            </aside>
+
+
+          </section>
+
+          <section>
+            <h3>Why the parser wins</h3>
+
+            <ul>
+              <li>Stateful processing</li>
+              <li>Recursive structure</li>
+              <li>Proper tokenisation</li>
+              <li>Extensible</li>
+              <li>Debuggable</li>
+              <li>Single pass</li>
+            </ul>
+
+            <aside class="notes">
+              <ul>
+                <li><strong>Stateful processing</strong>: Tracks context and position</li>
+                <li><strong>Recursive structure</strong>: Naturally handles nested blocks</li>
+                <li><strong>Proper tokenisation</strong>: Correctly handles quotes, escapes, and delimiters</li>
+                <li><strong>Extensible</strong>: Easy to add new features like comments or new directive types</li>
+                <li><strong>Debuggable</strong>: Clear control flow makes issues easy to trace and fix</li>
+              </ul>
+            </aside>
           </section>
         </section>
 
         <section>
-          <section data-background="#444c55"><h1>Next steps</h1></section>
+          <section data-background="#444c55"><h2>Next steps</h2></section>
           <section>
-            parsy and lark
+            <h2>Reading</h2>
+
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/Chomsky_hierarchy">Chomsky hierarchy</a></li>
+              <li><a href="https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/">Understanding parser combinators</a></li>
+              <li><a href="https://lark-parser.readthedocs.io/en/latest/">Lark</a></li>
+              <li><a href="https://github.com/python-parsy/parsy">Parsy</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Picking the right tool</h2>
+
+            <blockquote>
+              When somebody says "just use regex", you can stop and think about whether it is the right
+              tool for the job.
+            </blockquote>
+          </section>
+
+          <section>
+            <h1>Questions</h1>
           </section>
         </section>
 
       </div>
     </div>
  
-    <link rel="stylesheet" href="./nord.hl.css">
+    <link rel="stylesheet" href="./horizon.hl.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.js"></script>
     <script>
       Reveal.initialize({ 
